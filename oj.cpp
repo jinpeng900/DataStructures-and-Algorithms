@@ -1,27 +1,38 @@
-# include<bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-int lengthOfLongestSubstring(string s){
-    int n = s.length();
 
-    unordered_set<char> dp;
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
 
-    int ans = 0;
-    int pos = 0;
- 
-    for (int i = 0 ; i < n ; i++){
-        if (i != 0){
-            dp.erase(s[i-1]);
-        }
 
-        while (pos < n && dp.count(s[pos]) == 0){
-            dp.insert(s[pos]);
-            pos++;
-        }
+int minDepth(TreeNode* root) {
+    queue<pair<TreeNode* , int>> path;
 
-        ans = max(ans , pos - i + 1);
-
+    if (root == nullptr){
+        return 0;
     }
-    return ans;
+    
+    path.push({root , 1});
 
+    while (true)
+    {
+        auto& it = path.front();
+        path.pop();
+        TreeNode * p = it.first;
+        int s = it.second;
+        if (p->left == nullptr && p->right == nullptr){
+            return s;
+        }
+        path.push({p->left , s+1});
+        path.push({p->right , s+1});
+    }
+    
+    
 }
