@@ -1,25 +1,27 @@
 # include<bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> merge(vector<vector<int>>& intervals){
-    sort(intervals.begin() , intervals.end());
-    vector<vector<int>> ans;
 
-    int n = intervals.size();
-    if (n == 0){
-        return {};
+vector<int> productExceptSelf(vector<int>& nums){
+    int length = nums.size();
+
+    vector<int> L(length , 0) , R(length , 0);
+
+    vector<int> answer (length);
+
+    L[0] = 1;
+    for (int i = 1 ; i < length ; i++){
+        L[i] = nums[i-1] * L[i-1];
     }
 
-    for (auto&t : intervals){
-        int i = t[0];
-        int j = t[1];
-
-        if (ans.empty() || ans.back()[1] < i){
-            ans.push_back({i , j});
-        }
-        else{
-            ans.back()[1] = max(ans.back()[1] , j);
-        }
+    R[length - 1] = 1;
+    for (int i = length - 2 ; i >= 0 ; i--){
+        R[i] = nums[i+1] * R[i+1];
     }
-    return ans;
+
+    for (int i = 0 ; i < length ; i++){
+        answer[i] = L[i] * R[i];
+    }
+
+    return answer;
 }
