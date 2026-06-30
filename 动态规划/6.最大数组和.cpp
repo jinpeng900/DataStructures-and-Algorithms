@@ -8,6 +8,7 @@ int main(){
     for (int i = 0 ; i < n ; i++){
         cin >> arr[i];
     }
+    
     int ans = -1000000000;
     vector<int> dp(n);
     dp[0] = arr[0];
