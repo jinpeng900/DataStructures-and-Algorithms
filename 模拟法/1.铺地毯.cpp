@@ -1,26 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+struct Carpet{
+    int a , b , g , k;
+};
+
 int main(){
     int n;
     cin >> n;
-
-    vector<vector<int>> dp = vector<vector<int>>(100001 , vector<int>(100001 , -1));
     
-    for (int z = 0 ; z < n ; ++z){
-        int a , b , g , k;
-        cin >> a >> b >> g >> k;
-        for (int i = 0 ; i <= g ; ++i){
-            for (int j = 0 ; j <= k ; ++j){
-                if (a+i >= 0 && b+j >= 0 && a+i <= 100000 && b+j <= 100000){
-                    dp[a+i][b+j] = z;
-                }
-            }
-        }
+    vector<Carpet> v(n);
+    
+    for (int i = 0 ; i < n ; ++i){
+        cin >> v[i].a >> v[i].b >> v[i].g >> v[i].k;
     }
 
     int p , q;
     cin >> p >> q;
-    cout << dp[p][q] << endl;
+  
+    for (int i = n - 1 ; i >= 0 ; i--){
+        int a = v[i].a;
+        int b = v[i].b;
+        int g = v[i].g;
+        int k = v[i].k;
+
+        if (p >= a && p <= a+g && q >= b && q <= b+k){
+            cout << i+1 << endl;
+            return 0;
+        }
+    }
+
+    cout << -1 << endl;
+
     return 0;
 }
