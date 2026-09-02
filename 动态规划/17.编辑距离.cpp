@@ -17,7 +17,7 @@ int main(){
         dp[i][0] = i; // B 是空串，A 需要删除 i 个字符
     }
     for (int j = 0; j <= n; j++) {
-        dp[0][j] = j; // A 是空串，A 需要插入 j 个字符
+        dp[0][j] = j; // A 是空串，A 需要.0插入 j 个字符
     }
 
     for (int i = 1 ; i <= m ; i++){
